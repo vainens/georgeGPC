@@ -51,6 +51,32 @@ Questo è il modo più veloce per provare l'interfaccia sul telefono: Termux avv
 
    Se hai già copiato il progetto nella memoria del telefono, usa invece `termux-setup-storage` una sola volta e poi, per esempio, `cd ~/storage/shared/georgeGPC`.
 
+   ### Se GitHub rifiuta la password
+
+   GitHub **non accetta la password normale dell'account** per i comandi Git via HTTPS. Inoltre, nel comando non copiare parentesi quadre, parentesi tonde o testo Markdown: per questo progetto il comando esatto è:
+
+   ```bash
+   git clone https://github.com/vainens/georgeGPC.git
+   cd georgeGPC
+   ```
+
+   Scegli una delle seguenti soluzioni se il repository è privato:
+
+   - **Più semplice:** rendi temporaneamente pubblico il repository da GitHub, poi ripeti esattamente i due comandi qui sopra. Per un repository pubblico Git non chiede username, password o token.
+   - **Token GitHub:** crea un *fine-grained personal access token* su GitHub, limitato al repository `vainens/georgeGPC`, con permesso **Contents: Read-only**. Ripeti `git clone`: quando Termux chiede `Username`, inserisci il tuo username GitHub; quando chiede `Password`, incolla il **token**, non la password GitHub. Non inviare il token a nessuno e revocalo se viene esposto.
+   - **Chiave SSH:** esegui i comandi seguenti, aggiungi la chiave mostrata nelle impostazioni GitHub (**SSH and GPG keys**) e poi usa l'URL SSH:
+
+     ```bash
+     pkg install openssh
+     ssh-keygen -t ed25519 -C "termux-georgegpc"
+     cat ~/.ssh/id_ed25519.pub
+     ssh -T git@github.com
+     git clone git@github.com:vainens/georgeGPC.git
+     cd georgeGPC
+     ```
+
+   Se compare `cd: georgeGPC: No such file or directory`, il clone precedente è fallito: non eseguire ancora `npm install`; completa prima uno dei metodi qui sopra e verifica con `ls` che la cartella `georgeGPC` esista.
+
 4. Installa le dipendenze e avvia la versione mobile:
 
    ```bash
