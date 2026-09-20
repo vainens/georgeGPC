@@ -1,0 +1,35 @@
+<!doctype html>
+<html lang="it">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="theme-color" content="#0b0b0d" />
+    <title>georgeGPC</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=DM+Mono&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+  </head>
+  <body>
+    <div class="app-shell">
+      <aside class="sidebar" id="sidebar">
+        <div class="brand"><span class="brand-mark">g</span><span>george<span class="accent">GPC</span></span><button class="icon-button mobile-only" id="close-menu" aria-label="Chiudi menu">×</button></div>
+        <button class="new-chat" id="new-chat"><span>＋</span> Nuova conversazione <kbd>⌘ K</kbd></button>
+        <nav class="nav-links"><button class="nav-item active"><span>◈</span> Chat</button><button class="nav-item"><span>⌁</span> Esplora</button><button class="nav-item"><span>◫</span> Libreria</button></nav>
+        <div class="history"><p>OGGI</p><button class="history-item active">Progetti per una startup</button><button class="history-item">Idee per il weekend</button><button class="history-item">Spiegami la fisica quantistica</button><p>IERI</p><button class="history-item">Piano di studio inglese</button></div>
+        <div class="sidebar-footer"><button class="profile" id="profile-button"><span class="avatar">G</span><span><b>Guest</b><small>Account gratuito</small></span><span class="dots">•••</span></button></div>
+      </aside>
+      <main class="main">
+        <header class="topbar"><button class="icon-button mobile-menu" id="open-menu" aria-label="Apri menu">☰</button><button class="model-picker" id="model-picker"><span class="status-dot"></span><span id="current-model">gpc-1.5 preview</span><span class="chevron">⌄</span></button><div class="top-actions"><button class="icon-button" aria-label="Condividi">↗</button><button class="icon-button" id="settings-button" aria-label="Impostazioni">⚙</button></div></header>
+        <section class="conversation" id="conversation">
+          <div class="hero" id="hero"><div class="hero-orb">g</div><h1>Ciao, sono <em>george.</em></h1><p>La tua mente extra, con una piccola dose di ironia.</p><div class="suggestions"><button data-prompt="Aiutami a organizzare la mia giornata">✦ Organizza la mia giornata</button><button data-prompt="Spiegami un concetto difficile in modo semplice">◎ Spiegami qualcosa di difficile</button><button data-prompt="Dammi un'idea creativa per un progetto">↗ Troviamo un'idea</button></div></div>
+        </section>
+        <div class="composer-area"><div class="composer"><textarea id="prompt" rows="1" placeholder="Chiedi qualsiasi cosa a george…" aria-label="Messaggio"></textarea><div class="composer-tools"><button class="tool-button" aria-label="Allega file">＋</button><button class="tool-button" aria-label="Usa il microfono">⌁</button><span class="composer-spacer"></span><button class="send-button" id="send" aria-label="Invia messaggio">↑</button></div></div><p class="disclaimer">georgeGPC può commettere errori. Verifica sempre le informazioni importanti.</p></div>
+      </main>
+    </div>
+    <div class="overlay" id="overlay"></div>
+    <div class="modal hidden" id="settings-modal" role="dialog" aria-modal="true" aria-labelledby="settings-title"><div class="modal-header"><div><p class="eyebrow">PREFERENZE</p><h2 id="settings-title">Impostazioni</h2></div><button class="icon-button close-modal">×</button></div><div class="setting"><div><b>Modalità ironica</b><p>Risposte brillanti, mai fuori luogo.</p></div><label class="switch"><input type="checkbox" id="irony-toggle" checked><span></span></label></div><div class="setting"><div><b>Lingua</b><p>Lingua dell'interfaccia e delle risposte.</p></div><select id="language"><option>Italiano</option><option>English</option><option>Español</option><option>Français</option></select></div><div class="setting stack"><div><b>Connetti OpenAI</b><p>Collega in modo sicuro il tuo provider AI per usare modelli esterni.</p></div><button class="outline-button" id="connect-openai">Connetti provider</button></div><div class="setting stack"><div><b>Dati e privacy</b><p>Le conversazioni rimangono sul tuo dispositivo finché non attivi la sincronizzazione.</p></div><button class="text-button">Gestisci i dati</button></div></div>
+    <div class="modal hidden" id="auth-modal" role="dialog" aria-modal="true" aria-labelledby="auth-title"><div class="modal-header"><div><p class="eyebrow">BENVENUTO</p><h2 id="auth-title">Accedi a georgeGPC</h2></div><button class="icon-button close-modal">×</button></div><p class="modal-intro">Salva la cronologia e continua le conversazioni su ogni dispositivo.</p><form id="auth-form"><label>Email<input type="email" required placeholder="tu@email.it"></label><label>Password<input type="password" required placeholder="••••••••"></label><button class="primary-button" type="submit">Continua</button></form><p class="auth-switch">Non hai un account? <button id="register-button">Registrati</button></p></div>
+    <div class="model-menu hidden" id="model-menu"><button data-model="gpc-1-lite"><span><b>gpc-1-lite</b><small>Veloce, leggero, quotidiano</small></span><i>◌</i></button><button data-model="gpc-1-flash"><span><b>gpc-1-flash</b><small>Rapido e intelligente</small></span><i>◌</i></button><button data-model="gpc-1.5 preview" class="selected"><span><b>gpc-1.5 preview</b><small>Il più capace · Preview</small></span><i>✓</i></button></div>
+    <script type="module" src="/src/main.js"></script>
+  </body>
+</html>
