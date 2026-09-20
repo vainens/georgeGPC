@@ -30,11 +30,56 @@ npm run dev
 
 Apri nel browser l'indirizzo mostrato dal terminale, di norma `http://localhost:5173`.
 
+## Avviarlo direttamente su Android con Termux
+
+Questo è il modo più veloce per provare l'interfaccia sul telefono: Termux avvia il piccolo server web e Chrome/Firefox apre la pagina. **Non crea né installa un APK**; per quello usa l'artifact Android descritto nella prima tabella.
+
+1. Installa Termux dalla sua distribuzione ufficiale aggiornata, quindi aprilo.
+2. Installa Node.js e Git:
+
+   ```bash
+   pkg update && pkg upgrade
+   pkg install git nodejs-lts
+   ```
+
+3. Scarica il progetto (sostituisci l'URL con quello del tuo repository) e apri la cartella:
+
+   ```bash
+   git clone https://github.com/TUO-UTENTE/georgeGPC.git
+   cd georgeGPC
+   ```
+
+   Se hai già copiato il progetto nella memoria del telefono, usa invece `termux-setup-storage` una sola volta e poi, per esempio, `cd ~/storage/shared/georgeGPC`.
+
+4. Installa le dipendenze e avvia la versione mobile:
+
+   ```bash
+   npm install --ignore-scripts
+   npm run dev:termux
+   ```
+
+   `--ignore-scripts` evita di scaricare Electron, che serve solo per Windows/Linux e non è necessario sul telefono.
+
+5. Senza chiudere Termux, apri **Chrome** o **Firefox** sullo stesso telefono e visita:
+
+   ```text
+   http://127.0.0.1:5173
+   ```
+
+   Puoi anche eseguire `termux-open-url http://127.0.0.1:5173` per aprire l'indirizzo direttamente. Per arrestare il server torna in Termux e premi `Ctrl+C`.
+
+### Usarla come app dalla schermata Home
+
+Nel browser Android apri il menu e scegli **Aggiungi a schermata Home** / **Installa app**. Otterrai un'icona per aprire georgeGPC rapidamente, ma Termux e il server devono restare attivi. Per una vera app che funzioni senza Termux, scarica e installa `georgeGPC-android.apk` dall'artifact GitHub Actions.
+
 ### Comandi per ogni piattaforma
 
 ```bash
 # crea la cartella web ottimizzata
 npm run build
+
+# avvia la versione web sul telefono da Termux
+npm run dev:termux
 
 # apre l'app desktop in sviluppo
 npm run desktop
