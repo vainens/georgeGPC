@@ -1,0 +1,59 @@
+name: Build release files
+
+on:
+  workflow_dispatch:
+  push:
+    tags: ['v*']
+
+permissions:
+  contents: write
+
+jobs:
+  web:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with: { node-version: 22, cache: npm }
+      - run: npm ci
+      - run: npm run build
+      - run: cd dist && zip -r ../georgeGPC-web.zip .
+      - uses: actions/upload-artifact@v4
+        with: { name: georgeGPC-web, path: georgeGPC-web.zip }
+
+  windows:
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with: { node-version: 22, cache: npm }
+      - run: npm ci
+      - run: npm run package:windows
+      - uses: actions/upload-artifact@v4
+        with: { name: georgeGPC-windows, path: release/*.exe }
+
+  linux:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with: { node-version: 22, cache: npm }
+      - run: npm ci
+      - run: npm run package:linux
+      - uses: actions/upload-artifact@v4
+        with: { name: georgeGPC-linux, path: release/*.AppImage }
+
+  android:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with: { node-version: 22, cache: npm }
+      - uses: actions/setup-java@v4
+        with: { distribution: temurin, java-version: '21' }
+      - uses: android-actions/setup-android@v3
+      - run: npm ci
+      - run: npm run build && npx cap add android && npx cap sync android
+      - run: cd android && ./gradlew assembleRelease
+      - uses: actions/upload-artifact@v4
+        with: { name: georgeGPC-android, path: android/app/build/outputs/apk/release/app-release.apk }

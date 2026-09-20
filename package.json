@@ -1,13 +1,54 @@
 {
   "name": "georgegpc",
   "version": "0.1.0",
+  "description": "georgeGPC chat application",
+  "author": "georgeGPC",
   "private": true,
+  "main": "electron/main.cjs",
   "scripts": {
     "dev": "vite",
     "build": "vite build",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "desktop": "npm run build && electron .",
+    "package:windows": "npm run build && electron-builder --win nsis --x64",
+    "package:linux": "npm run build && electron-builder --linux AppImage --x64",
+    "android:prepare": "npm run build && cap add android",
+    "android:sync": "npm run build && cap sync android",
+    "android:apk": "npm run android:sync && cd android && ./gradlew assembleRelease",
+    "package:web": "npm run build && mkdir -p release && cd dist && zip -r ../release/georgeGPC-web.zip ."
   },
   "devDependencies": {
+    "@capacitor/android": "^7.4.3",
+    "@capacitor/cli": "^7.4.3",
+    "@capacitor/core": "^7.4.3",
+    "electron": "^37.4.0",
+    "electron-builder": "^26.0.12",
+    "typescript": "^5.7.3",
     "vite": "^7.1.7"
+  },
+  "build": {
+    "appId": "com.georgegpc.app",
+    "productName": "georgeGPC",
+    "directories": {
+      "output": "release"
+    },
+    "files": [
+      "dist/**",
+      "electron/**",
+      "package.json"
+    ],
+    "linux": {
+      "target": [
+        "AppImage"
+      ],
+      "category": "Utility",
+      "desktopName": "georgeGPC",
+      "synopsis": "georgeGPC chat application"
+    },
+    "win": {
+      "target": [
+        "nsis"
+      ]
+    }
   }
 }
